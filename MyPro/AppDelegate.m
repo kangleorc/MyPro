@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MyProViewController.h"
+#import "myCategoryPage.h"
 @interface AppDelegate ()
 
 @end
@@ -16,6 +17,40 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UIWindow* window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
+    self.window = window;
+    self.window.backgroundColor = [UIColor purpleColor];
+    
+    UITabBarController*myProTabBar = [[UITabBarController alloc]init];
+    //---------two tableview
+    MyProViewController* myProFirstView = [[MyProViewController alloc]init];
+    myCategoryPage* myProSecView = [[myCategoryPage alloc]init];
+
+    //---------two navigationController
+    UINavigationController * myProFirstNaviCon = [[UINavigationController alloc]initWithRootViewController:myProFirstView];
+    UINavigationController* myProSecNaviCon = [[UINavigationController alloc]initWithRootViewController:myProSecView];
+   
+    //----------two TabBar
+    UITabBarItem* myProFirstTabBar = [[UITabBarItem alloc]init];
+    myProFirstTabBar.title = @"首页";
+    myProFirstTabBar.image = [UIImage imageNamed:@"lala"];
+    
+    UITabBarItem* myProSecTabBar = [[UITabBarItem alloc]init];
+    myProSecTabBar.title = @"分类";
+    myProSecTabBar.image = [UIImage imageNamed:@"Players"];
+    myProFirstNaviCon.tabBarItem = myProFirstTabBar;
+    myProSecNaviCon.tabBarItem = myProSecTabBar;
+    
+    //myProSecNaviCon.tabBarController
+    myProFirstView.navigationItem.title = @"Page首页";
+    myProSecView.navigationItem.title = @"Page分类";
+    NSArray* myProArray = [[NSArray alloc]initWithObjects:myProFirstNaviCon,myProSecNaviCon, nil];
+    
+    
+    myProTabBar.viewControllers = myProArray;
+    
+    self.window.rootViewController = myProTabBar;
+    
     // Override point for customization after application launch.
     return YES;
 }
